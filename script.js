@@ -1,56 +1,44 @@
-// MEMUAT FOOTER DARI FILE FOOTER.HTML
-document.addEventListener("DOMContentLoaded", function () {
-  const footerContainer = document.getElementById("footer-container");
-
-  fetch("footer.html")
-    .then(function (response) {
-      if (!response.ok) {
-        throw new Error("Footer tidak berhasil dimuat.");
-      }
-
-      return response.text();
-    })
-    .then(function (data) {
-      footerContainer.innerHTML = data;
-    })
-    .catch(function (error) {
-      console.error("Terjadi kesalahan:", error);
-
-      footerContainer.innerHTML =
-        "<footer class='site-footer text-center'>" +
-        "<p>© 2026 Generasi Bersih.</p>" +
-        "</footer>";
-    });
-});
-
+// =================================
 // FORM KONTAK
-const contactForm = document.getElementById("contactForm");
+// =================================
 
-if (contactForm) {
-  contactForm.addEventListener("submit", function (event) {
+document.getElementById("contactForm").addEventListener("submit", function(event) {
+
+    // Mencegah halaman refresh
     event.preventDefault();
 
-    const nama = document.getElementById("nama").value;
+    // Mengambil nama
+    let nama = document.getElementById("nama").value;
 
-    alert(
-      "Terima kasih, " + nama +
-      "! Pesan kamu berhasil diterima."
-    );
+    // Menampilkan pesan
+    document.getElementById("formMessage").innerHTML =
+        "Terima kasih " + nama + "! Pesan berhasil diisi.";
 
-    contactForm.reset();
-  });
-}
+    // Mengosongkan formulir
+    this.reset();
 
-// EFEK NAVBAR SAAT LINK DIKLIK DI HP
-const navLinks = document.querySelectorAll(".navbar-nav .nav-link");
+});
 
-navLinks.forEach(function (link) {
-  link.addEventListener("click", function () {
-    const menu = document.querySelector(".navbar-collapse");
 
-    if (menu && menu.classList.contains("show")) {
-      const bsCollapse = bootstrap.Collapse.getOrCreateInstance(menu);
-      bsCollapse.hide();
-    }
-  });
+// =================================
+// NAVBAR OTOMATIS TERTUTUP
+// SETELAH MENU DIKLIK DI HP
+// =================================
+
+document.querySelectorAll(".navbar-nav .nav-link").forEach(function(link) {
+
+    link.addEventListener("click", function() {
+
+        let menu = document.getElementById("menuNavbar");
+
+        if (menu.classList.contains("show")) {
+
+            let navbar = bootstrap.Collapse.getOrCreateInstance(menu);
+
+            navbar.hide();
+
+        }
+
+    });
+
 });
